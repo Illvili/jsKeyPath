@@ -1,0 +1,18 @@
+{
+  "name": "jskeypath",
+  "version": "0.0.1",
+  "description": "",
+  "main": "tsc",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Illvili/jsKeyPath.git"
+  },
+  "author": "Illvili",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Illvili/jsKeyPath/issues"
+  }
+}
