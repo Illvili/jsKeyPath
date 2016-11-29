@@ -58,4 +58,28 @@ export class jsKeyPath {
             obj[firstKey] = tempValue
         }
     }
+
+    public static toPlainObject(obj: Object, prefix: string = ''): Object {
+        var tempObj = {}
+
+        for (var _ in obj) {
+            var key = (prefix ? prefix + '.' : '') + _,
+                value = obj[_],
+                type = typeof value
+
+            if (type == 'object') {
+                if (value instanceof Array) {
+                    tempObj[key] = JSON.stringify(value)
+
+                    continue
+                }
+
+                tempObj = this.mergeObj(tempObj, this.toPlainObject(value, key))
+            } else {
+                tempObj[key] = value
+            }
+        }
+
+        return tempObj
+    }
 }

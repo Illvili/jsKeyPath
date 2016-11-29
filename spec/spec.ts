@@ -8,6 +8,7 @@ describe('Basic Test', function () {
     it('Should has some methods', function () {
         expect(jsKeyPath.getValue).toBeDefined('getValue is undefined')
         expect(jsKeyPath.setValue).toBeDefined('setValue is undefined')
+        expect(jsKeyPath.toPlainObject).toBeDefined('toPlainObject is undefined')
     })
 })
 
@@ -39,6 +40,35 @@ describe('Functional Test', function () {
     })
 
     it('Should set right value to object', function () {
+        var testObj = {
+            a: 1, b: 2.0, c: 'test value',
+            d: {
+                e: false,
+                f: {
+                    g: 'deep value'
+                }
+            },
+            0: 1, 1: 2,
+            arr: [ 0, 1, 2, false ],
+            q: undefined
+        }
+
+        var kpValues = jsKeyPath.toPlainObject(testObj)
+        expect(Object.keys(kpValues).length).toBe(9)
+
+        expect(kpValues['a']).toBe(1)
+        expect(kpValues['b']).toBe(2.0)
+        expect(kpValues['c']).toBe('test value')
+        expect(kpValues['d.e']).toBe(false)
+        expect(kpValues['d.f.g']).toBe('deep value')
+        expect(kpValues['0']).toBe(1)
+        expect(kpValues['1']).toBe(2)
+        expect(kpValues['arr']).toBe('[0,1,2,false]')
+        expect(kpValues.hasOwnProperty('q')).toBe(true)
+        expect(kpValues['q']).toBeUndefined()
+    })
+
+    it('Should return keyPath: value object', function () {
         var testObj = { }
 
         jsKeyPath.setValue(testObj, 'a', 1)
